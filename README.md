@@ -1,2 +1,2 @@
 # SimpleChatter
-SimpleChatter is Simple chat app which you can use to connect with your friends and family. It is written in python and . 
+SimpleChatter is a Simple chat app that you can use to connect with your friends and family. It is written in python and C. 
