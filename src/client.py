@@ -21,32 +21,27 @@ def send(msg):
 
 def listen_for_incoming_messages():
     thread = threading.Thread(target=recive_messages)
+    thread.daemon = True
     thread.start()
 
 
 def recive_messages():
     while True:
         message = client.recv(HEADER).decode(FORMAT)
+
         if message:
             message += '\n'
-            
+
             chatarea.insert(END, message)
             chatarea.yview(END)
 
 
 def Join():
     JoinMessage = "[alert]"+NameValue.get()+" has been joined"
-    sendjoinmessage = JoinMessage.encode(FORMAT)
-    msglength = len(sendjoinmessage)
-    sendlength = str(msglength).encode(FORMAT)
-    sendlength += b' ' * (HEADER-len(sendlength))
-    client.send(sendlength)
-    client.send(sendjoinmessage)
-
+    send(JoinMessage)
 
 
 def Send():
-    
     full_message = NameValue.get()+' : '+Message.get()
     send(full_message)
 

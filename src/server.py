@@ -15,17 +15,15 @@ def handle_client(conn, addr):
             if msg_length:
                 msg_length = int(msg_length)
                 msg = conn.recv(msg_length).decode(FORMAT)
-                if msg == DISC:
+
+                if DISC in str(msg):
                     connected = False
                 print(f"{addr}{msg}")
                 print("[Operation] sending to all clients")
                 for sock in clients:
                     sock.send(msg.encode(FORMAT))
-
-        except OSError:
-            print(f"{addr} has been removed")
-            clients.remove(conn)
-
+        except ConnectionAbortedError:
+            conn.close()
     for sock in clients:
         sock.close()
     socket.close()
@@ -38,7 +36,9 @@ def start():
         clients.append(conn)
         print(f"[Alert] {addr} has been Connected")
         thread = threading.Thread(target=handle_client, args=(conn, addr))
+        thread.daemon = True
         thread.start()
+
         print(f"[ACTIVE CONNECTIONS] {threading.active_count() - 1}")
 
 
