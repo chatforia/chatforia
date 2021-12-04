@@ -1,3 +1,8 @@
- name: Install dependencies
-run: pip install pygame 
-
+name: main-command
+on: [push]
+jobs:
+  runs-on: ubuntu-latest
+  steps:
+    - run: echo push
+    - run: echo files
+    - run: dir ${{github.workspace}}
