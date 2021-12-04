@@ -4,7 +4,7 @@ from tkinter.constants import *
 from constants import *
 import tkinter as tk
 from tkinter import scrolledtext
-
+import pygame
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
@@ -42,6 +42,9 @@ def Join():
 
 
 def Send():
+    pygame.mixer.init()
+    pygame.mixer.music.load("tones/COMCell_Message 1 (ID 1111)_BSB.wav")
+    pygame.mixer.music.play()
     full_message = NameValue.get()+' : '+Message.get()
     send(full_message)
 
