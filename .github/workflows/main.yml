@@ -2,8 +2,8 @@ name: main-command
 on: [push]
 jobs:
   Explore-GitHub-Actions:
-  runs-on: ubuntu-latest
-  steps:
-    - run: echo push
-    - run: echo files
-    - run: dir ${{github.workspace}}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo push
+      - run: echo files
+      - run: ls ${{github.workspace}}
