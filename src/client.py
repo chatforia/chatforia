@@ -37,7 +37,9 @@ def recive_messages():
 
 
 def Join():
+    joinbutton['state'] = 'disabled'
     JoinMessage = "[alert]"+NameValue.get()+" has been joined"
+    nameEntry['state'] = 'disabled'
     send(JoinMessage)
 
 
