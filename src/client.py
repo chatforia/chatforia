@@ -37,6 +37,9 @@ def recive_messages():
 
 
 def Join():
+    pygame.mixer.init()
+    pygame.mixer.music.load("tones/COMCell_Message 1 (ID 1111)_BSB.wav")
+    pygame.mixer.music.play()
     joinbutton['state'] = 'disabled'
     JoinMessage = "[alert]"+NameValue.get()+" has been joined"
     nameEntry['state'] = 'disabled'
@@ -49,6 +52,8 @@ def Send():
     pygame.mixer.music.play()
     full_message = NameValue.get()+' : '+Message.get()
     send(full_message)
+    Message.set("")
+    sendbox.update()
 
 
 if __name__ == "__main__":
