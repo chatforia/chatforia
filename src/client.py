@@ -5,9 +5,16 @@ from constants import *
 import tkinter as tk
 from tkinter import scrolledtext
 import pygame
+from tkinter.messagebox import *
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
+
+
+def playsound(sound=r"tones/COMCell_Message 1 (ID 1111)_BSB.wav"):
+    pygame.mixer.init()
+    pygame.mixer.music.load(sound)
+    pygame.mixer.music.play()
 
 
 def send(msg):
@@ -36,28 +43,33 @@ def recive_messages():
             chatarea.yview(END)
 
 
-def Join():
-    pygame.mixer.init()
-    pygame.mixer.music.load("tones/COMCell_Message 1 (ID 1111)_BSB.wav")
-    pygame.mixer.music.play()
-    joinbutton['state'] = 'disabled'
-    JoinMessage = "[alert]"+NameValue.get()+" has been joined"
-    nameEntry['state'] = 'disabled'
-    send(JoinMessage)
+def Join(event=None):
+    if NameValue.get() == "":
+        showerror("Error", "Error: Your name is not valid")
+    else:
+        playsound()
+        joinbutton['state'] = 'disabled'
+        JoinMessage = "[alert]"+NameValue.get()+" has been joined"
+        nameEntry['state'] = 'disabled'
+        send(JoinMessage)
 
 
-def Send():
-    pygame.mixer.init()
-    pygame.mixer.music.load("tones/COMCell_Message 1 (ID 1111)_BSB.wav")
-    pygame.mixer.music.play()
-    full_message = NameValue.get()+' : '+Message.get()
-    send(full_message)
-    Message.set("")
-    sendbox.update()
+def Send(event=None):
+    if Message.get() == "":
+        showerror("Error", "Error: Your message is not valid")
+    else:
+        playsound()
+
+        full_message = NameValue.get()+' : '+Message.get()
+        send(full_message)
+
+        Message.set("")
+        sendbox.update()
 
 
 if __name__ == "__main__":
     root = tk.Tk()
+
     root.title("Client window")
     root.geometry("800x800")
 

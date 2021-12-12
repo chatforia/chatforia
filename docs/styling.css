@@ -44,3 +44,7 @@
           color: green;
            
       }
+      .version{
+        display: block;
+        padding: 10px;
+      }

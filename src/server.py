@@ -10,20 +10,19 @@ clients = []
 def handle_client(conn, addr):
     connected = True
     while connected:
-        try:
-            msg_length = conn.recv(HEADER).decode(FORMAT)
-            if msg_length:
-                msg_length = int(msg_length)
-                msg = conn.recv(msg_length).decode(FORMAT)
+        msg_length = conn.recv(HEADER).decode(FORMAT)
+        if msg_length:
+            msg_length = int(msg_length)
+            msg = conn.recv(msg_length).decode(FORMAT)
 
-                if DISC in str(msg):
-                    connected = False
-                print(f"{addr}{msg}")
-                print("[Operation] sending to all clients")
-                for sock in clients:
-                    sock.send(msg.encode(FORMAT))
-        except ConnectionAbortedError:
-            conn.close()
+            if DISC in str(msg):
+                connected = False
+            print(f"{addr}{msg}")
+            print("[Operation] sending to all clients")
+            for sock in clients:
+                sock.send(msg.encode(FORMAT))
+        
+
     for sock in clients:
         sock.close()
     socket.close()
