@@ -11,10 +11,7 @@ client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
 
 
-def playsound(sound=r"tones/COMCell_Message 1 (ID 1111)_BSB.wav"):
-    pygame.mixer.init()
-    pygame.mixer.music.load(sound)
-    pygame.mixer.music.play()
+
 
 
 def send(msg):
@@ -47,7 +44,6 @@ def Join(event=None):
     if NameValue.get() == "":
         showerror("Error", "Error: Your name is not valid")
     else:
-        playsound()
         joinbutton['state'] = 'disabled'
         JoinMessage = "[alert]"+NameValue.get()+" has been joined"
         nameEntry['state'] = 'disabled'
@@ -58,8 +54,6 @@ def Send(event=None):
     if Message.get() == "":
         showerror("Error", "Error: Your message is not valid")
     else:
-        playsound()
-
         full_message = NameValue.get()+' : '+Message.get()
         send(full_message)
 
