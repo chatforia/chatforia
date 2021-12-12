@@ -4,14 +4,10 @@ from tkinter.constants import *
 from constants import *
 import tkinter as tk
 from tkinter import scrolledtext
-import pygame
 from tkinter.messagebox import *
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
-
-
-
 
 
 def send(msg):
