@@ -48,3 +48,13 @@
         display: block;
         padding: 10px;
       }
+      .patchnotes{
+        color: bisque;
+        width: 500px;
+        height: 500px;
+        margin: auto;
+        overflow: scroll;
+        background-color: grey;
+        padding: 45px;
+        margin-top: 25px;
+      }
