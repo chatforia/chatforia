@@ -1,7 +1,7 @@
-#Repository
+# Repository
 <p>Chatforia is a repository where we(chatforia) make our product chatforia</p>
 
-#Mission
+# Mission
 <p>This app will change the way of how people chat.</p>
 
 # chatforia
