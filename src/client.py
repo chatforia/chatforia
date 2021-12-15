@@ -5,9 +5,17 @@ from constants import *
 import tkinter as tk
 from tkinter import scrolledtext
 from tkinter.messagebox import *
-
+from tkinter import filedialog as fd
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
+
+
+def save_chat():
+    file = fd.asksaveasfilename(defaultextension="*.txt",
+                                filetypes=(("Text Documents", "*.txt"), ("All files", "*.*")))
+
+    with open(file, "w") as f:
+        f.write(chatarea.get(1.0, END))
 
 
 def send(msg):
@@ -63,11 +71,26 @@ if __name__ == "__main__":
     root.title("Client window")
     root.geometry("800x800")
 
+    # themes
+    root.tk.call('source',  'lib\\Sun-Valley-ttk-theme\\sun-valley.tcl')
+    root.tk.call('set_theme', 'dark')
+
     NameValue = tk.StringVar()
     Message = tk.StringVar()
 
     chatarea = scrolledtext.ScrolledText()
     chatarea.pack(side=TOP, fill=X)
+
+    # making the chat area read only
+    chatarea.bind("<Key>", lambda e: "break")
+
+    # menus
+    menu = tk.Menu(root)
+
+    filemenu = tk.Menu(menu, tearoff=0)
+    filemenu.add_command(label="Save Chat", command=save_chat)
+
+    menu.add_cascade(menu=filemenu, label="File")
 
     Form = tk.Frame(root, relief=SUNKEN, borderwidth=6)
     Form.pack(side="bottom")
@@ -76,13 +99,15 @@ if __name__ == "__main__":
 
     nameEntry.grid(column=0, row=0)
 
-    joinbutton = tk.Button(Form, text="Join the server", command=Join)
+    joinbutton = tk.Button(Form, text="Join the server",
+                           command=Join, font="Arial 9", padx=20)
 
     joinbutton.grid(column=2, row=0)
     sendbox = tk.Entry(Form, textvariable=Message)
     sendbox.grid(column=0, row=1)
-    sendbutton = tk.Button(Form, text="Send", command=Send)
+    sendbutton = tk.Button(Form, text="Send", command=Send, padx=20)
     sendbutton.grid(column=2, row=1)
+    root.config(menu=menu)
     listen_for_incoming_messages()
 
     root.mainloop()
