@@ -21,11 +21,7 @@ def handle_client(conn, addr):
             print("[Operation] sending to all clients")
             for sock in clients:
                 sock.send(msg.encode(FORMAT))
-        
-
-    for sock in clients:
-        sock.close()
-    socket.close()
+    conn.close()
 
 
 def start():
